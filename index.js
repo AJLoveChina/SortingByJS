@@ -237,7 +237,6 @@ function Html( val ){	//向页面输出HTML
 	div.setAttribute( 'style', 'padding:20px;border:1px solid #ccc;margin:10px 0;' );
 	document.body.appendChild( div );
 }
-
 // window.A = A; 
 
 })()
