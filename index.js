@@ -18,6 +18,10 @@ yy.start = function(){
 						100k				134,381ms
 *	JS 快速排序 		10k					70ms		
 						100k				5200 ms ~ 11,000ms
+						
+	我很纳闷为什么直接插入排序算法的性能是最好的？反而比牛逼的快速排序还要快？
+	代码也木有写错啊？是不是因为空间复杂度？
+	求大神解释一小下。。。
 */
 yy.sort = function(){
 	var prop = {},
@@ -179,7 +183,7 @@ Sort.prototype={
 		return arr;
 	},
 };
-function A( prop ){
+function A( prop ){	//所有算法公用的的操作数组的方法
 	if( this instanceof A ){
 		if( prop instanceof Array ){
 			this.arr = prop;
@@ -197,7 +201,7 @@ A.prototype={
 		this.arr[j] = this.arr[i] ^ this.arr[j];
 		this.arr[i] = this.arr[i] ^ this.arr[j];
 	},
-	minIndex : function( i, j ){
+	minIndex : function( i, j ){	//获取数组从第 i+1 到 j+1 个元素之间最小元素的 键值（key）
 		var arr = this.arr.concat( [] ),
 			i = i === undefined ? 0 : i,
 			j = j === undefined ? arr.length-1 : j, 
@@ -211,7 +215,7 @@ A.prototype={
 		}
 		return index;
 	},
-	biaoji : function( i, style ){
+	biaoji : function( i, style ){		//将数组的第i+1元素打上特殊标记（以style字符串），并返回数组
 		var arr = this.arr.concat( [] ),
 			style = style ===undefined ? '*' : (style+'');
 		arr[i] += style;
@@ -227,13 +231,13 @@ A.prototype={
 	}
 };
 
-function Html( val ){
+function Html( val ){	//向页面输出HTML
 	var div = document.createElement( 'div' );
 	div.innerHTML = val;
 	div.setAttribute( 'style', 'padding:20px;border:1px solid #ccc;margin:10px 0;' );
 	document.body.appendChild( div );
 }
 
-window.A = A;
+// window.A = A; 
 
 })()
