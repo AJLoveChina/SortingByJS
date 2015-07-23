@@ -1,23 +1,23 @@
 (function(){
 window.onload = function(){
 	yy.start();
-}
+};
 
 var yy = {};
 
 yy.start = function(){
 	yy.sort();
-}
-/*						元素个数			时间
-*  	JS 直接插入排序				10k				31ms
-						100k				2636ms
-						1000k				1,041,383ms 
-*	JS Shell Sort				10k				140ms
-						100k				12,228ms
-*	JS 冒泡排序 				10k 	  			1362 ms
-						100k				134,381ms
-*	JS 快速排序 				10k				70ms		
-						100k				5200 ms ~ 11,000ms
+};
+/*						            元素个数			  时间
+*  	JS 直接插入排序				10k				      31ms
+					              	100k			    	2636ms
+					              	1000k				    1,041,383ms 
+*	JS Shell Sort			    	10k			      	140ms
+					              	100k			    	12,228ms
+*	JS 冒泡排序 			    	10k 	  		  	1362 ms
+					               	100k			    	134,381ms
+*	JS 快速排序 			    	10k				      70ms		
+						              100k			    	5200 ms ~ 11,000ms
 						
 	我很纳闷为什么直接插入排序算法的性能是最好的？反而比牛逼的快速排序还要快？
 	代码也木有写错啊？是不是因为空间复杂度？
@@ -30,21 +30,22 @@ yy.sort = function(){
 	
 	Html( "<h2>要排序"+ num +"个元素的数组(打开控制台查看时间性能信息，建议对10k~100k个元素进行测试)</h2>" + prop.arr.join() );
 	
-	var result = Sort( prop ).straightInsertionSort();
+	var result;
+  result = Sort( prop ).straightInsertionSort();
 	console.log( result );
 	
-	var result = Sort( prop ).shellSort();
+	result = Sort( prop ).shellSort();
 	console.log( result );
 	
-	var result = Sort( prop ).simpleSelectionSort();
+	result = Sort( prop ).simpleSelectionSort();
 	console.log( result );
 	
-	var result = Sort( prop ).bubbleSort();
+	result = Sort( prop ).bubbleSort();
 	console.log( result );
 
-	var result = Sort( prop ).quickSort();
+	result = Sort( prop ).quickSort();
 	console.log( result );
-}
+};
 
 
 function Sort( prop ){
@@ -58,9 +59,9 @@ function Sort( prop ){
 Sort.prototype={
 	straightInsertionSort : function(){		//cha ru paixu		O(n^2)
 		var arr = [],
-			source = this.arr.concat( [] );
-			one = source.shift(),
-			time = + new Date();
+		  	source = this.arr.concat( [] ),
+		  	one = source.shift(),
+			  time = +new Date();
 			
 		console.log( source );
 		arr.push( one );
@@ -93,10 +94,10 @@ Sort.prototype={
 		// 相对直接排序有较大的改进
 		// 比较相隔较远距离（称为增量）的数，使得数移动时能跨过多个元素，则进行一次比[2] 较就可能消除多个元素交换。
 		var len = this.arr.length,
-			d = Math.floor(len/2),
-			d = d === 0 ? 1 : d,
-			arr = this.arr.concat( [] ),
-			time = + new Date();
+		    d = Math.floor(len/2),
+			  arr = this.arr.concat( [] ),
+		    time = + new Date();
+		d = d === 0 ? 1 : d;
 			
 		console.log( arr );
 		while( d >= 1 ){
@@ -202,11 +203,11 @@ A.prototype={
 		this.arr[i] = this.arr[i] ^ this.arr[j];
 	},
 	minIndex : function( i, j ){	//获取数组从第 i+1 到 j+1 个元素之间最小元素的 键值（key）
-		var arr = this.arr.concat( [] ),
-			i = i === undefined ? 0 : i,
-			j = j === undefined ? arr.length-1 : j, 
-			min = arr[i],
-			index = i;
+		var arr = this.arr.concat( [] );
+  	i = i === undefined ? 0 : i;
+  	j = j === undefined ? arr.length-1 : j;
+		var min = arr[i],
+		  	index = i;
 		for( var m = i; m <= j; m++ ){
 			if( min > arr[m] ){
 				min = arr[m];
@@ -216,14 +217,14 @@ A.prototype={
 		return index;
 	},
 	biaoji : function( i, style ){		//将数组的第i+1元素打上特殊标记（以style字符串），并返回数组
-		var arr = this.arr.concat( [] ),
-			style = style ===undefined ? '*' : (style+'');
+		var arr = this.arr.concat( [] );
+		style = style ===undefined ? '*' : (style+'');
 		arr[i] += style;
 		return arr;
 	},
 	random : function( n ){ 	//产生n个元素的随机数组
-		var arr = [],
-			n = n || 10;
+		var arr = [];
+		n = n || 10;
 		for( var i = 0; i < n; i++ ){
 			arr.push( parseInt(Math.random().toFixed(2) * 100) );
 		}
@@ -240,4 +241,4 @@ function Html( val ){	//向页面输出HTML
 
 // window.A = A; 
 
-})()
+})();
