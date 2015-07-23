@@ -9,14 +9,14 @@ yy.start = function(){
 	yy.sort();
 }
 /*						元素个数			时间
-*  	JS 直接插入排序		10k					31ms
+*  	JS 直接插入排序				10k				31ms
 						100k				2636ms
 						1000k				1,041,383ms 
-*	JS Shell Sort		10k					140ms
+*	JS Shell Sort				10k				140ms
 						100k				12,228ms
-*	JS 冒泡排序 		10k 	  			1362 ms
+*	JS 冒泡排序 				10k 	  			1362 ms
 						100k				134,381ms
-*	JS 快速排序 		10k					70ms		
+*	JS 快速排序 				10k				70ms		
 						100k				5200 ms ~ 11,000ms
 						
 	我很纳闷为什么直接插入排序算法的性能是最好的？反而比牛逼的快速排序还要快？
