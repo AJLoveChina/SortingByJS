@@ -8,30 +8,30 @@ var yy = {};
 yy.start = function(){
 	yy.sort();
 };
-/*						            元素个数			  时间
-*  	JS 直接插入排序				10k				      31ms
+/*	性能比较						元素个数			  时间
+*  	JS 直接插入排序					10k				     	31ms
 					              	100k			    	2636ms
 					              	1000k				    1,041,383ms 
-*	JS Shell Sort			    	10k			      	140ms
+*	JS Shell Sort			    	10k			      		140ms
 					              	100k			    	12,228ms
-*	JS 冒泡排序 			    	10k 	  		  	1362 ms
+*	JS 冒泡排序 			    	10k 	  		  		1362 ms
 					               	100k			    	134,381ms
-*	JS 快速排序 			    	10k				      70ms		
-						              100k			    	5200 ms ~ 11,000ms
+*	JS 快速排序 			    	10k				     	15ms		
+						            100k			    	94ms
+						            1000k			    	1014ms
+						            10000k			    	10624ms
 						
-	我很纳闷为什么直接插入排序算法的性能是最好的？反而比牛逼的快速排序还要快？
-	代码也木有写错啊？是不是因为空间复杂度？
-	求大神解释一小下。。。
+
 */
 yy.sort = function(){
 	var prop = {},
-		num = 100;
+		  num = 100;
 	prop.arr = A().random( num );
 	
 	Html( "<h2>要排序"+ num +"个元素的数组(打开控制台查看时间性能信息，建议对10k~100k个元素进行测试)</h2>" + prop.arr.join() );
 	
 	var result;
-  result = Sort( prop ).straightInsertionSort();
+	result = Sort( prop ).straightInsertionSort();
 	console.log( result );
 	
 	result = Sort( prop ).shellSort();
@@ -45,8 +45,9 @@ yy.sort = function(){
 
 	result = Sort( prop ).quickSort();
 	console.log( result );
-};
 
+
+};
 
 function Sort( prop ){
 	if( this instanceof Sort ){
@@ -108,6 +109,7 @@ Sort.prototype={
 			}
 			d --;
 		}
+		
 		console.log( 'Shell:' + ( (+ new Date() ) - time )+ 'ms' );
 		this.result = arr;
 		html = "<br>希尔排序后：<br>" + arr.join();
@@ -161,7 +163,16 @@ Sort.prototype={
 		
 		console.log( arr );
 		sort( 0, arr.length-1 );
+		
 		function sort( m, n ){
+			var nowIndex;
+			/*
+				快速排序最大的瓶颈在于把数组划分成 俩半
+				（即左边全部小于中间的数，右边全部大于中间的数）
+				请比较下面俩个方法A,B的性能
+			*/
+			/*----------A------------*/
+			/*
 			var first = arr[m],
 				nowIndex = m;
 			for( var i = m ; i <= n; i++ ){
@@ -176,13 +187,39 @@ Sort.prototype={
 			if( n - nowIndex >= 2 ){
 				sort( nowIndex+1, n );
 			}
+			*/
+			/*-----------B-----------*/
+			(function(m, n){
+				var mid = arr[Math.floor((m + n) / 2)];
+				while(m <= n){
+					while(arr[m] < mid){
+						m++;
+					}
+					while(arr[n] > mid){
+						n--;
+					}
+					if(m <= n){
+						A( arr ).swap(m, n);
+						m++;
+						n--;
+					}
+				}
+				nowIndex = m;
+			})(m, n);
+			if(m < nowIndex - 1){
+				sort(m, nowIndex-1);
+			}
+			if(nowIndex < n){
+				sort(nowIndex, n);
+			}
+			/*----------END------------*/
 			return true;
 		}
 		console.log( +new Date() - time + 'ms' );
 		html = "<br>快速排序后：<br>" + arr.join();
 		Html( html );
 		return arr;
-	},
+	}
 };
 function A( prop ){	//所有算法公用的的操作数组的方法
 	if( this instanceof A ){
