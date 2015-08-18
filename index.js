@@ -8,15 +8,15 @@ var yy = {};
 yy.start = function(){
 	yy.sort();
 };
-/*	性能比较						    元素个数			        时间
-*  	JS 直接插入排序				    10k				     	31ms
+/*	性能比较						元素个数			  时间
+*  	JS 直接插入排序					10k				     	31ms
 					              	100k			    	2636ms
 					              	1000k				    1,041,383ms 
 *	JS Shell Sort			    	10k			      		140ms
 					              	100k			    	12,228ms
 *	JS 冒泡排序 			    	10k 	  		  		1362 ms
 					               	100k			    	134,381ms
-*	JS 快速排序 			        10k				     	15ms
+*	JS 快速排序 			    	10k				     	15ms		
 						            100k			    	94ms
 						            1000k			    	1014ms
 						            10000k			    	10624ms
@@ -59,13 +59,13 @@ function Sort( prop ){
 }
 Sort.prototype={
 	straightInsertionSort : function(){		//cha ru paixu		O(n^2)
-	    var arr = [],
-		    source = this.arr.concat( [] ),
-		    one = source.shift(),
-		    time = +new Date();
+		var arr = [],
+		  	source = this.arr.concat( [] ),
+		  	one = source.shift(),
+			  time = +new Date();
 			
 		console.log( source );
-	    arr.push( one );
+		arr.push( one );
 		while( source.length > 0 ){
 			one = source.shift();
 			insert( one, arr );
@@ -91,13 +91,12 @@ Sort.prototype={
 		this.result = arr;
 		return arr;
 	},
-	shellSort : function(){
-	    // 希尔排序			O(n^1.3)
+	shellSort : function(){					// 希尔排序			O(n^1.3)
 		// 相对直接排序有较大的改进
-		// 比较相隔较远距离（称为增量）的数，使得数移动时能跨过多个元素，则进行一次比较就可能消除多个元素交换。
+		// 比较相隔较远距离（称为增量）的数，使得数移动时能跨过多个元素，则进行一次比[2] 较就可能消除多个元素交换。
 		var len = this.arr.length,
 		    d = Math.floor(len/2),
-			arr = this.arr.concat([]),
+			  arr = this.arr.concat( [] ),
 		    time = + new Date();
 		d = d === 0 ? 1 : d;
 			
@@ -108,8 +107,9 @@ Sort.prototype={
 					A( arr ).swap( i, i+d );
 				}
 			}
-            d --;
+			d --;
 		}
+		
 		console.log( 'Shell:' + ( (+ new Date() ) - time )+ 'ms' );
 		this.result = arr;
 		html = "<br>希尔排序后：<br>" + arr.join();
@@ -142,19 +142,17 @@ Sort.prototype={
 	},
 	bubbleSort  : function( ){				//冒泡排序				O(n^2)
 		var arr = this.arr.concat( [] ),
-			time = + new Date(),
-            i,
-            j;
+			time = + new Date();
 		console.log( arr );
-		for(i = 0; i < arr.length - 1; i ++ ){
-			for(j = 0; j < arr.length - i -1; j++ ){
+		for(var i = 0; i < arr.length - 1; i ++ ){
+			for(var j = 0; j < arr.length - i -1; j++ ){
 				if( arr[j] > arr[j+1] && arr[j+1] !== undefined ){
 					A( arr ).swap( j, j+1 );
 				}
 			}
 		}
 		html = "<br/>冒泡排序后<br>" + arr.join( ',' );
-        Html( html );
+		Html( html );
 		
 		console.log( ( + new Date() ) - time + 'ms' );
 		return arr;
@@ -243,8 +241,8 @@ A.prototype={
 	},
 	minIndex : function( i, j ){	//获取数组从第 i+1 到 j+1 个元素之间最小元素的 键值（key）
 		var arr = this.arr.concat( [] );
-  	    i = i === undefined ? 0 : i;
-  	    j = j === undefined ? arr.length-1 : j;
+  	i = i === undefined ? 0 : i;
+  	j = j === undefined ? arr.length-1 : j;
 		var min = arr[i],
 		  	index = i;
 		for( var m = i; m <= j; m++ ){
